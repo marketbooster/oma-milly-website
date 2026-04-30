@@ -1,0 +1,50 @@
+{
+  "tagline": "✦ Een prentenboek over liefde & afscheid ✦",
+  "hero_subtitle": "Voor iedereen die iemand moet missen.",
+  "author_line": "— Thysja voor 't Hekke",
+  "price_hardcover": "€19,95",
+  "price_softcover": "€14,95",
+  "page_count": "40",
+  "shipping_note": "Gratis verzending binnen Nederland · Levertijd 3-5 werkdagen",
+  "author_bio": "Thysja schreef dit boek in nagedachtenis aan haar lieve Oma Basha. Ze geloofde dat verdriet en liefde altijd hand in hand gaan — en dat een verhaal kinderen kan helpen om zachte, eerlijke woorden te vinden voor wat groot en moeilijk voelt.",
+  "dedication": "\"Ter herdenking aan Oma Basha\"",
+  "reviews": [
+    {
+      "text": "Een prachtig boek dat ons gezin heeft geholpen om over oma te praten. De zachte tekening van Dylan en Oma Milly raakt je hart.",
+      "author": "Lisa",
+      "role": "moeder van twee"
+    },
+    {
+      "text": "Als therapeut gebruik ik dit boek vaak in gesprekken met kinderen die rouwen. Het opent de deur naar emoties op een veilige manier.",
+      "author": "Marieke",
+      "role": "kindertherapeut"
+    },
+    {
+      "text": "De metafoor van het steentje dat een diamantje wordt is zo ontroerend. Mijn dochter vraagt elke avond om dit boek.",
+      "author": "Anouk",
+      "role": "leerkracht groep 2"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Vanaf welke leeftijd is dit boek geschikt?",
+      "answer": "Het boek is geschreven voor kinderen van 4 tot 6 jaar. Met begeleiding van een ouder of leerkracht is het ook geschikt voor jongere of oudere kinderen."
+    },
+    {
+      "question": "Is dit boek bruikbaar bij rouwverwerking?",
+      "answer": "Ja, het boek is bewust geschreven met aandacht voor rouw en gemis. Het wordt gebruikt door ouders, leerkrachten en kindertherapeuten als hulpmiddel bij gesprekken over verlies."
+    },
+    {
+      "question": "Hoe wordt het boek verzonden?",
+      "answer": "Het boek wordt veilig verpakt in een kartonnen omslag verzonden via PostNL. Levertijd binnen Nederland is 3-5 werkdagen."
+    },
+    {
+      "question": "Kan ik het boek met een persoonlijke opdracht laten signeren?",
+      "answer": "Ja, neem contact op via het formulier hieronder en geef je gewenste opdracht door. Ik schrijf het graag persoonlijk in voor jou of je kindje."
+    },
+    {
+      "question": "Wat zijn de bezorgkosten?",
+      "answer": "Verzending binnen Nederland is gratis. Voor België en de rest van Europa rekenen we een kleine bijdrage van €4,95."
+    }
+  ]
+}

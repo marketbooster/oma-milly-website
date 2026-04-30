@@ -1,0 +1,82 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: false
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: "nl"
+
+site_url: https://omamilly.netlify.app
+display_url: https://omamilly.netlify.app
+logo_url: https://omamilly.netlify.app/og-image.jpg
+
+collections:
+  - name: "instellingen"
+    label: "Site instellingen"
+    description: "Hier pas je de hoofdinhoud van de website aan."
+    files:
+      - file: "_data/content.json"
+        label: "Hoofdinhoud"
+        name: "main"
+        format: "json"
+        fields:
+          - label: "Hero ondertitel"
+            name: "hero_subtitle"
+            widget: "string"
+            hint: "Korte zin onder de titel op de homepage"
+
+          - label: "Auteursnaam onder titel"
+            name: "author_line"
+            widget: "string"
+
+          - label: "Tagline (klein label boven titel)"
+            name: "tagline"
+            widget: "string"
+
+          - label: "Prijs hardcover"
+            name: "price_hardcover"
+            widget: "string"
+            hint: "Bijvoorbeeld €19,95"
+
+          - label: "Prijs softcover"
+            name: "price_softcover"
+            widget: "string"
+
+          - label: "Aantal pagina's"
+            name: "page_count"
+            widget: "string"
+
+          - label: "Verzendinfo"
+            name: "shipping_note"
+            widget: "string"
+
+          - label: "Auteur bio"
+            name: "author_bio"
+            widget: "text"
+            hint: "De tekst onder 'Over Thysja voor 't Hekke'"
+
+          - label: "Opdracht (dedication)"
+            name: "dedication"
+            widget: "string"
+
+          - label: "Reviews"
+            name: "reviews"
+            widget: "list"
+            min: 1
+            max: 6
+            summary: "{{fields.author}} — {{fields.role}}"
+            fields:
+              - {label: "Tekst", name: "text", widget: "text"}
+              - {label: "Naam", name: "author", widget: "string"}
+              - {label: "Rol/Functie", name: "role", widget: "string"}
+
+          - label: "Veelgestelde vragen"
+            name: "faq"
+            widget: "list"
+            summary: "{{fields.question}}"
+            fields:
+              - {label: "Vraag", name: "question", widget: "string"}
+              - {label: "Antwoord", name: "answer", widget: "text"}
