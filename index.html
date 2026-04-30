@@ -1,13 +1,303 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Inhoud beheren — Oma Milly</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-cms="meta_title">Oma Milly en de Grote Zee</title>
+<meta name="description" content="Een warm prentenboek over afscheid, herinneringen en eeuwige liefde." data-cms-meta="meta_description">
+<meta property="og:title" content="Oma Milly en de Grote Zee" data-cms-meta="meta_title">
+<meta property="og:description" content="" data-cms-meta="meta_description">
+<meta property="og:image" content="" data-cms-meta="og_image">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='90'%3E🐢%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--sand:#F5E6D3;--teal:#9CC8C5;--sky:#C5DCE4;--peach:#F8D5B8;--twilight:#4A6B8A;--night:#0a1428;--ivory:#FDF8F0;--gold:#E8C97A;--ink:#3a3a3a;--soft:#5a5a5a;--scroll:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',Georgia,serif;color:var(--ink);background:var(--ivory);line-height:1.7;font-size:18px;overflow-x:hidden;position:relative}
+.bg{position:fixed;inset:0;z-index:-3;background:linear-gradient(180deg,hsl(200,calc(55% - var(--scroll)*35%),calc(90% - var(--scroll)*75%)) 0%,hsl(35,calc(65% - var(--scroll)*35%),calc(88% - var(--scroll)*70%)) 30%,hsl(20,calc(60% - var(--scroll)*30%),calc(85% - var(--scroll)*70%)) 55%,hsl(280,calc(35% + var(--scroll)*20%),calc(80% - var(--scroll)*70%)) 75%,hsl(218,calc(35% + var(--scroll)*35%),calc(75% - var(--scroll)*70%)) 100%);transition:background .3s}
+.night-ov{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at center top,transparent 0%,rgba(10,20,40,.9) 100%);opacity:calc(max(0,var(--scroll)*1.8 - 1));pointer-events:none}
+.stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:calc(max(0,var(--scroll)*2 - 1.1));background-image:radial-gradient(2px 2px at 12% 18%,#fff,transparent),radial-gradient(1.5px 1.5px at 23% 42%,#fff,transparent),radial-gradient(2.5px 2.5px at 38% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 47% 65%,#fff,transparent),radial-gradient(2px 2px at 58% 28%,#fff,transparent),radial-gradient(1.5px 1.5px at 67% 78%,#fff,transparent),radial-gradient(2.5px 2.5px at 78% 35%,#fff,transparent),radial-gradient(1.5px 1.5px at 85% 55%,#fff,transparent),radial-gradient(2px 2px at 92% 22%,#fff,transparent),radial-gradient(1.5px 1.5px at 8% 72%,#fff,transparent),radial-gradient(2.5px 2.5px at 88% 88%,var(--gold),transparent),radial-gradient(2px 2px at 15% 95%,var(--gold),transparent);animation:twinkle 4s ease-in-out infinite}
+@keyframes twinkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
+.spotlight{position:fixed;pointer-events:none;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(232,201,122,.35) 0%,rgba(248,213,184,.2) 30%,transparent 70%);transform:translate(-50%,-50%);z-index:9998;mix-blend-mode:soft-light;transition:opacity .4s;opacity:0;filter:blur(25px)}
+.spotlight.on{opacity:1}
+.stone{position:fixed;width:90px;height:90px;z-index:100;pointer-events:none;display:flex;align-items:center;justify-content:center;left:0;top:0;transform:translate(-50%,-50%);transition:transform .05s linear}
+.stone svg{width:100%;height:100%;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3))}
+.stone .s,.stone .d{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .6s,transform .6s}
+.stone .d{opacity:0;transform:scale(.5) rotate(-30deg)}
+.stone.on .s{opacity:0;transform:scale(.3)}
+.stone.on .d{opacity:1;transform:scale(1) rotate(0);animation:sparkle 2s ease-in-out infinite}
+.stone .lbl{position:absolute;top:-2rem;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:1rem;color:var(--gold);white-space:nowrap;background:rgba(255,255,255,.9);padding:.25rem .8rem;border-radius:20px;opacity:0;transition:opacity .4s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.stone.on .lbl{opacity:1}
+@keyframes sparkle{0%,100%{filter:drop-shadow(0 4px 12px rgba(232,201,122,.6)) brightness(1)}50%{filter:drop-shadow(0 4px 24px rgba(232,201,122,1)) brightness(1.4)}}
+h1,h2,h3{font-family:'Caveat',cursive;font-weight:600;color:var(--twilight);line-height:1.2}
+h1{font-size:clamp(3rem,7vw,5.5rem)}
+h2{font-size:clamp(2.2rem,4.5vw,3.5rem);text-align:center;margin-bottom:1.5rem}
+h3{font-size:1.6rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500}
+p{margin-bottom:1rem;color:var(--soft)}
+a{color:var(--twilight);text-decoration:none}
+.c{max-width:1200px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:2}
+section{padding:5rem 0;position:relative;background:transparent}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.fs{position:absolute;color:var(--gold);opacity:.5;font-size:1.2rem;animation:float 8s ease-in-out infinite;pointer-events:none}
+@keyframes float{0%,100%{transform:translateY(0) translateX(0);opacity:.4}50%{transform:translateY(-20px) translateX(10px);opacity:.8}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.tagline{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--twilight);margin-bottom:1rem;display:inline-block;padding:.3rem 1rem;background:rgba(255,255,255,.5);border-radius:30px}
+.subtitle{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:var(--soft);margin-bottom:1.5rem}
+.author{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--twilight);margin-bottom:2rem}
+.btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.9rem 2rem;border-radius:40px;font-family:'Lora',serif;font-size:1rem;font-weight:500;transition:all .3s;cursor:pointer;border:none}
+.btn-p{background:var(--peach);color:var(--twilight);box-shadow:0 4px 14px rgba(248,213,184,.6)}
+.btn-p:hover{background:var(--gold);transform:translateY(-2px)}
+.btn-s{background:transparent;color:var(--twilight);border:2px solid var(--twilight)}
+.btn-s:hover{background:var(--twilight);color:var(--ivory)}
+.book{width:100%;max-width:380px;aspect-ratio:3/4;perspective:1500px}
+.book-3d{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.23,1,.32,1);animation:bf 6s ease-in-out infinite;cursor:pointer}
+.book-3d:hover{transform:rotateY(-30deg) rotateX(5deg)}
+.book-cover{position:absolute;inset:0;border-radius:6px;background:linear-gradient(135deg,var(--sand),var(--teal));box-shadow:0 30px 60px rgba(74,107,138,.25);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2rem;text-align:center;z-index:3;transform:translateZ(15px);overflow:hidden}
+.book-cover img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.book-cover h2{font-size:2.2rem;color:#fff;margin:0;text-shadow:0 2px 8px rgba(74,107,138,.4)}
+.book-cover .ti{font-size:5rem;margin:1rem 0}
+.book-cover .an{font-family:'Caveat',cursive;color:#fff;font-size:1.3rem;margin-top:1rem}
+@keyframes bf{0%,100%{transform:translateY(0) rotateY(-5deg)}50%{transform:translateY(-15px) rotateY(5deg)}}
+.about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:center}
+.ic{width:100%;aspect-ratio:1;max-width:380px;margin:0 auto;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sky));display:flex;align-items:center;justify-content:center;font-size:8rem;box-shadow:0 20px 50px rgba(156,200,197,.4);overflow:hidden}
+.ic img{width:100%;height:100%;object-fit:cover}
+.about-text h2{text-align:left}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.card{background:#fff;padding:2.5rem 2rem;border-radius:20px;text-align:center;box-shadow:0 10px 30px rgba(74,107,138,.08);transition:all .3s}
+.card:hover{transform:translateY(-8px)}
+.card .ci{font-size:3rem;margin-bottom:1rem;display:inline-block;animation:bob 4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.peek-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.pi{aspect-ratio:1;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:4rem;box-shadow:0 10px 25px rgba(74,107,138,.1);transition:all .4s;cursor:pointer;overflow:hidden}
+.pi:hover{transform:scale(1.05) rotate(2deg)}
+.pi img{width:100%;height:100%;object-fit:cover}
+.pi:nth-child(1){background:linear-gradient(135deg,var(--sky),var(--teal))}
+.pi:nth-child(2){background:linear-gradient(135deg,var(--peach),var(--gold))}
+.pi:nth-child(3){background:linear-gradient(135deg,var(--teal),var(--sand))}
+.pi:nth-child(4){background:linear-gradient(135deg,var(--twilight),var(--sky))}
+.pcap{text-align:center;margin-top:2rem;font-style:italic;color:var(--soft);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.qs{background:radial-gradient(ellipse at center,rgba(74,107,138,.35) 0%,rgba(74,107,138,.15) 50%,transparent 100%);padding:7rem 0}
+.q{text-align:center;position:relative;z-index:2}
+.q blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.5rem,3.5vw,2.5rem);color:var(--ivory);max-width:800px;margin:0 auto 2rem;line-height:1.4}
+.q cite{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--gold);font-style:normal}
+.author-grid{display:grid;grid-template-columns:300px 1fr;gap:4rem;align-items:center;max-width:900px;margin:0 auto}
+.aph{width:300px;height:300px;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--sand));display:flex;align-items:center;justify-content:center;font-size:6rem;box-shadow:0 20px 50px rgba(248,213,184,.5);border:8px solid #fff;overflow:hidden}
+.aph img{width:100%;height:100%;object-fit:cover}
+.author-text h2{text-align:left}
+.ded{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--twilight);margin-top:1rem}
+.order-card{max-width:700px;margin:0 auto;background:#fff;border-radius:24px;padding:3rem;box-shadow:0 20px 60px rgba(74,107,138,.15);display:grid;grid-template-columns:200px 1fr;gap:2rem;align-items:center}
+.oc{aspect-ratio:3/4;background:linear-gradient(135deg,var(--sand),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:4rem;box-shadow:0 15px 30px rgba(74,107,138,.2);overflow:hidden}
+.oc img{width:100%;height:100%;object-fit:cover}
+.order-info h3{font-family:'Caveat',cursive;font-size:2rem;font-style:normal;color:var(--twilight);margin-bottom:.5rem}
+.price{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--twilight);margin:1rem 0}
+.ftog{display:flex;gap:.5rem;margin-bottom:1rem}
+.fb{padding:.5rem 1.2rem;border-radius:20px;background:var(--ivory);border:2px solid var(--sand);color:var(--soft);cursor:pointer;font-family:inherit}
+.fb.on{background:var(--peach);border-color:var(--peach);color:var(--twilight)}
+.order-info .btn{width:100%;text-align:center;margin-top:.5rem}
+.snote{font-size:.9rem;color:var(--soft);text-align:center;margin-top:1rem;font-style:italic}
+.review-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.review{background:rgba(245,230,211,.95);padding:2rem;border-radius:16px}
+.review .stars{color:var(--gold);font-size:1.2rem;margin-bottom:1rem}
+.review p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--ink)}
+.r-author{margin-top:1.5rem;font-family:'Caveat',cursive;font-size:1.2rem;color:var(--twilight)}
+.r-role{font-size:.85rem;color:var(--soft)}
+.faq-list{max-width:800px;margin:3rem auto 0}
+.faq-item{background:rgba(255,255,255,.95);border-radius:12px;margin-bottom:1rem;overflow:hidden;box-shadow:0 4px 15px rgba(74,107,138,.06)}
+.faq-q{padding:1.3rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--twilight)}
+.faq-q::after{content:'+';font-size:1.5rem;transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;padding:0 1.5rem;color:var(--soft)}
+.faq-item.open .faq-a{max-height:500px;padding:0 1.5rem 1.3rem}
+.nl{background:radial-gradient(ellipse at center,rgba(10,20,40,.5) 0%,rgba(10,20,40,.2) 60%,transparent 100%);color:var(--ivory);text-align:center}
+.nl h2{color:var(--ivory)}
+.nl p{color:var(--sky);margin-bottom:2rem;max-width:500px;margin:0 auto 2rem}
+.nl-form{display:flex;gap:.5rem;max-width:500px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.nl input{flex:1;min-width:250px;padding:.9rem 1.5rem;border-radius:30px;border:none;font-family:inherit;font-size:1rem}
+footer{background:linear-gradient(180deg,rgba(5,10,20,.4) 0%,rgba(5,10,20,.7) 100%);color:var(--sky);padding:3rem 0 2rem;text-align:center}
+footer p{color:var(--sky);font-size:.9rem;margin-bottom:.5rem}
+.ft{font-family:'Caveat',cursive;font-size:2rem;color:var(--gold);margin-bottom:1rem}
+.fl{display:flex;gap:2rem;justify-content:center;margin:1.5rem 0;flex-wrap:wrap}
+.fl a{color:var(--sky);transition:color .2s}
+.fl a:hover{color:var(--gold)}
+.fade{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+.fade.vis{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.grid,.about-grid,.author-grid,.order-card{grid-template-columns:1fr;gap:2rem;text-align:center}.cards,.review-cards{grid-template-columns:1fr}.peek-grid{grid-template-columns:repeat(2,1fr)}.aph{margin:0 auto}.btns{justify-content:center}section{padding:3.5rem 0}.about-text h2,.author-text h2{text-align:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.bg,.spotlight,.stone,.night-ov{display:none}}
+</style>
 </head>
 <body>
-<!-- Decap CMS laadt hieronder automatisch -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<div class="bg"></div>
+<div class="night-ov"></div>
+<div class="stars"></div>
+<div class="spotlight" id="sp"></div>
+<div class="stone" id="st">
+<span class="lbl">Een diamantje ✨</span>
+<div class="s"><svg viewBox="0 0 100 100"><ellipse cx="50" cy="55" rx="38" ry="32" fill="#7a7a7a"/><ellipse cx="42" cy="48" rx="22" ry="16" fill="#9a9a9a" opacity=".7"/></svg></div>
+<div class="d"><svg viewBox="0 0 100 100"><defs><linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity=".95"/><stop offset="50%" stop-color="#E8C97A" stop-opacity=".7"/><stop offset="100%" stop-color="#9CC8C5" stop-opacity=".8"/></linearGradient></defs><polygon points="50,15 80,40 65,85 35,85 20,40" fill="url(#dg)" stroke="#fff" stroke-width="1.5"/><polygon points="50,15 80,40 50,40" fill="#fff" opacity=".6"/></svg></div>
+</div>
+<section class="hero">
+<div class="fs" style="top:15%;left:10%">★</div>
+<div class="fs" style="top:25%;right:15%;animation-delay:2s">✦</div>
+<div class="fs" style="top:60%;left:8%;animation-delay:4s">✧</div>
+<div class="c">
+<div class="grid">
+<div class="fade">
+<span class="tagline" data-cms="tagline">✦ Een prentenboek ✦</span>
+<h1 data-cms="hero_title">Oma Milly en de Grote Zee</h1>
+<p class="subtitle" data-cms="hero_subtitle">Voor iedereen die iemand moet missen.</p>
+<p class="author" data-cms="author_line">— Thysja voor 't Hekke</p>
+<div class="btns">
+<a href="#bestellen" class="btn btn-p" data-cms="cta1_text">Bestel het boek</a>
+<a href="#over" class="btn btn-s" data-cms="cta2_text">Lees het verhaal</a>
+</div>
+</div>
+<div class="book fade">
+<div class="book-3d">
+<div class="book-cover">
+<img data-cms-img="book_cover" alt="" style="display:none">
+<div class="bcd">
+<h2>Oma Milly<br>en de<br>Grote Zee</h2>
+<div class="ti">🐢</div>
+<p class="an">Thysja voor 't Hekke</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="over">
+<div class="c">
+<div class="about-grid">
+<div class="ic fade"><img data-cms-img="about_image" alt="" style="display:none"><span class="emo">🐢</span></div>
+<div class="about-text fade">
+<h2 data-cms="about_title">Over Dylan en Oma Milly</h2>
+<p data-cms="about_p1">Dylan woont met zijn mama, papa en oma Milly...</p>
+<p data-cms="about_p2">Maar als oma ouder wordt, verandert er langzaam iets...</p>
+<p data-cms="about_p3">Dit boek helpt kinderen op een zachte manier...</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="c">
+<h2 class="fade" data-cms="for_who_title">Voor wie is dit boek?</h2>
+<div class="cards" data-cms-list="for_who_cards"></div>
+</div>
+</section>
+<section>
+<div class="c">
+<h2 class="fade" data-cms="peek_title">Een kijkje in het boek</h2>
+<div class="peek-grid fade" data-cms-list="peek_images"></div>
+<p class="pcap fade" data-cms="peek_caption">Dromerige aquarel-illustraties...</p>
+</div>
+</section>
+<section class="qs">
+<div class="c">
+<div class="q fade">
+<blockquote data-cms="quote_text">"Ik zal er altijd voor je zijn."</blockquote>
+<cite data-cms="quote_author">— Oma Milly</cite>
+</div>
+</div>
+</section>
+<section>
+<div class="c">
+<div class="author-grid">
+<div class="aph fade"><img data-cms-img="author_photo" alt="" style="display:none"><span class="emo">✍️</span></div>
+<div class="author-text fade">
+<h2 data-cms="author_title">Over Thysja voor 't Hekke</h2>
+<p data-cms="author_bio">Thysja schreef dit boek...</p>
+<p class="ded" data-cms="dedication">"Ter herdenking aan Oma Basha"</p>
+</div>
+</div>
+</div>
+</section>
+<section id="bestellen">
+<div class="c">
+<h2 class="fade" data-cms="order_title">Bestel het boek</h2>
+<div class="order-card fade">
+<div class="oc">📖</div>
+<div class="order-info">
+<h3 data-cms="order_book_title">Oma Milly en de Grote Zee</h3>
+<p style="font-size:.95rem;color:var(--soft)" data-cms="order_book_desc">Hardcover · 40 pagina's</p>
+<div class="ftog">
+<button class="fb on" onclick="sf(this,'h')">Hardcover</button>
+<button class="fb" onclick="sf(this,'s')">Softcover</button>
+</div>
+<div class="price" id="pr" data-cms="price_hardcover">€19,95</div>
+<a href="#" id="ob" class="btn btn-p" data-cms="order_cta">Voeg toe aan winkelmand</a>
+<p class="snote" data-cms="shipping_note">Gratis verzending</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="c">
+<h2 class="fade" data-cms="reviews_title">Wat lezers zeggen</h2>
+<div class="review-cards" data-cms-list="reviews"></div>
+</div>
+</section>
+<section>
+<div class="c">
+<h2 class="fade" data-cms="faq_title">Veelgestelde vragen</h2>
+<div class="faq-list fade" data-cms-list="faq"></div>
+</div>
+</section>
+<section class="nl">
+<div class="c fade">
+<h2 data-cms="newsletter_title">Blijf in de Zonnebaai</h2>
+<p data-cms="newsletter_desc">Ontvang als eerste nieuws...</p>
+<form class="nl-form" onsubmit="event.preventDefault();alert('Bedankt!');">
+<input type="email" placeholder="Je e-mailadres" required>
+<button type="submit" class="btn btn-p" data-cms="newsletter_cta">Aanmelden</button>
+</form>
+</div>
+</section>
+<footer>
+<div class="c">
+<div class="ft" data-cms="hero_title">Oma Milly en de Grote Zee</div>
+<p data-cms="footer_tagline">Voor iedereen die iemand moet missen.</p>
+<div class="fl">
+<a href="#over">Over het boek</a>
+<a href="#bestellen">Bestellen</a>
+<a id="ce" href="#">Contact</a>
+</div>
+<p data-cms="copyright">© 2026 Thysja voor 't Hekke</p>
+</div>
+</footer>
+<script>
+const root=document.documentElement,st=document.getElementById('st'),sp=document.getElementById('sp');
+let mx=innerWidth-100,my=innerHeight-100,sx=mx,sy=my,sc=0;
+function us(){const m=document.documentElement.scrollHeight-innerHeight;sc=Math.min(1,Math.max(0,scrollY/m));root.style.setProperty('--scroll',sc);st.classList.toggle('on',sc>.65)}
+addEventListener('scroll',us,{passive:true});addEventListener('resize',us);us();
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;sp.style.left=mx+'px';sp.style.top=my+'px';sp.classList.add('on')});
+addEventListener('mouseleave',()=>sp.classList.remove('on'));
+function as(){sx+=(mx-sx)*.08;sy+=(my-sy)*.08;st.style.left=(sx+50)+'px';st.style.top=(sy+50)+'px';requestAnimationFrame(as)}as();
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('vis')),{threshold:.15});
+document.querySelectorAll('.fade').forEach(e=>io.observe(e));
+function tf(el){el.parentElement.classList.toggle('open')}
+let cms=null;
+function sf(b,f){document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on'));b.classList.add('on');const p=document.getElementById('pr');p.textContent=cms?(f==='h'?cms.price_hardcover:cms.price_softcover):p.textContent}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+fetch('/_data/content.json').then(r=>r.json()).then(d=>{cms=d;
+document.querySelectorAll('[data-cms]').forEach(el=>{const k=el.dataset.cms;if(d[k])el.textContent=d[k]});
+document.querySelectorAll('[data-cms-meta]').forEach(el=>{const k=el.dataset.cmsMeta;if(d[k])el.setAttribute('content',d[k])});
+document.querySelectorAll('[data-cms-img]').forEach(el=>{const k=el.dataset.cmsImg;if(d[k]){el.src=d[k];el.style.display='block';const sib=el.parentElement.querySelector('.bcd, .emo');if(sib)sib.style.display='none'}});
+if(d.meta_title)document.title=d.meta_title;
+if(d.for_who_cards){const c=document.querySelector('[data-cms-list="for_who_cards"]');if(c)c.innerHTML=d.for_who_cards.map(x=>'<div class="card fade vis"><div class="ci">'+esc(x.icon)+'</div><h3>'+esc(x.title)+'</h3><p>'+esc(x.description)+'</p></div>').join('')}
+if(d.peek_images){const c=document.querySelector('[data-cms-list="peek_images"]');if(c)c.innerHTML=d.peek_images.map(x=>'<div class="pi">'+(x.image?'<img src="'+esc(x.image)+'" alt="">':esc(x.emoji||'⭐'))+'</div>').join('')}
+if(d.reviews){const c=document.querySelector('[data-cms-list="reviews"]');if(c)c.innerHTML=d.reviews.map(r=>'<div class="review fade vis"><div class="stars">★★★★★</div><p>"'+esc(r.text)+'"</p><div class="r-author">'+esc(r.author)+'</div><div class="r-role">'+esc(r.role)+'</div></div>').join('')}
+if(d.faq){const c=document.querySelector('[data-cms-list="faq"]');if(c)c.innerHTML=d.faq.map(f=>'<div class="faq-item"><div class="faq-q" onclick="tf(this)">'+esc(f.question)+'</div><div class="faq-a"><p>'+esc(f.answer)+'</p></div></div>').join('')}
+if(d.order_email){document.getElementById('ob').href='mailto:'+d.order_email+'?subject=Bestelling%20'+encodeURIComponent(d.order_book_title||'Oma Milly')}
+if(d.contact_email){document.getElementById('ce').href='mailto:'+d.contact_email}
+}).catch(()=>{});
+</script>
 </body>
 </html>
