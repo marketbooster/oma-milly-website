@@ -11,68 +11,96 @@ locale: "nl"
 
 site_url: https://omamilly.netlify.app
 display_url: https://omamilly.netlify.app
-logo_url: https://omamilly.netlify.app/og-image.jpg
 
 collections:
+  # ===== HOOFDINHOUD (alle teksten + afbeeldingen) =====
   - name: "instellingen"
-    label: "Site instellingen"
-    description: "Hier pas je de hoofdinhoud van de website aan."
+    label: "📖 Site instellingen"
+    description: "Hier pas je alles op je website aan — teksten, prijzen, reviews en afbeeldingen."
     files:
       - file: "_data/content.json"
         label: "Hoofdinhoud"
         name: "main"
         format: "json"
         fields:
-          - label: "Hero ondertitel"
-            name: "hero_subtitle"
-            widget: "string"
-            hint: "Korte zin onder de titel op de homepage"
+          # === SEO ===
+          - {label: "🔍 Meta titel (Google)", name: "meta_title", widget: "string", required: false, hint: "Verschijnt in Google zoekresultaten"}
+          - {label: "🔍 Meta beschrijving (Google)", name: "meta_description", widget: "text", required: false, hint: "Korte tekst onder de Google-titel — max 160 tekens"}
+          - {label: "🔍 Deel-afbeelding (1200×630 px)", name: "og_image", widget: "image", required: false, hint: "Wordt getoond bij delen op WhatsApp/Facebook"}
 
-          - label: "Auteursnaam onder titel"
-            name: "author_line"
-            widget: "string"
+          # === HERO ===
+          - {label: "🏷️ Tagline (klein label boven titel)", name: "tagline", widget: "string"}
+          - {label: "📚 Hoofdtitel", name: "hero_title", widget: "string"}
+          - {label: "💬 Ondertitel", name: "hero_subtitle", widget: "string"}
+          - {label: "✍️ Auteursnaam", name: "author_line", widget: "string"}
+          - {label: "🟠 Knop 1 tekst", name: "cta1_text", widget: "string"}
+          - {label: "🟢 Knop 2 tekst", name: "cta2_text", widget: "string"}
+          - {label: "📕 Boekomslag afbeelding", name: "book_cover", widget: "image", required: false, hint: "Vervang de standaard schildpad-omslag"}
 
-          - label: "Tagline (klein label boven titel)"
-            name: "tagline"
-            widget: "string"
+          # === OVER HET BOEK ===
+          - {label: "Sectie titel: Over het boek", name: "about_title", widget: "string"}
+          - {label: "Over het boek - paragraaf 1", name: "about_p1", widget: "text"}
+          - {label: "Over het boek - paragraaf 2", name: "about_p2", widget: "text"}
+          - {label: "Over het boek - paragraaf 3", name: "about_p3", widget: "text"}
+          - {label: "Over het boek - illustratie", name: "about_image", widget: "image", required: false}
 
-          - label: "Prijs hardcover"
-            name: "price_hardcover"
-            widget: "string"
-            hint: "Bijvoorbeeld €19,95"
+          # === VOOR WIE ===
+          - {label: "Sectie titel: Voor wie", name: "for_who_title", widget: "string"}
+          - label: "3 Kaarten (Voor wie)"
+            name: "for_who_cards"
+            widget: "list"
+            min: 3
+            max: 3
+            fields:
+              - {label: "Icoon (emoji)", name: "icon", widget: "string"}
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Beschrijving", name: "description", widget: "text"}
 
-          - label: "Prijs softcover"
-            name: "price_softcover"
-            widget: "string"
+          # === KIJKJE IN HET BOEK ===
+          - {label: "Sectie titel: Kijkje in boek", name: "peek_title", widget: "string"}
+          - {label: "Onderschrift kijkje", name: "peek_caption", widget: "text"}
+          - label: "4 Illustraties uit het boek"
+            name: "peek_images"
+            widget: "list"
+            min: 4
+            max: 4
+            fields:
+              - {label: "Afbeelding", name: "image", widget: "image", required: false}
+              - {label: "Of: emoji als geen afbeelding", name: "emoji", widget: "string", required: false}
 
-          - label: "Aantal pagina's"
-            name: "page_count"
-            widget: "string"
+          # === QUOTE ===
+          - {label: "💎 Citaat tekst", name: "quote_text", widget: "text"}
+          - {label: "💎 Citaat door", name: "quote_author", widget: "string"}
 
-          - label: "Verzendinfo"
-            name: "shipping_note"
-            widget: "string"
+          # === AUTEUR ===
+          - {label: "Sectie titel: Over de auteur", name: "author_title", widget: "string"}
+          - {label: "Auteur bio", name: "author_bio", widget: "text"}
+          - {label: "Opdracht/dedication", name: "dedication", widget: "string"}
+          - {label: "Auteursfoto", name: "author_photo", widget: "image", required: false}
 
-          - label: "Auteur bio"
-            name: "author_bio"
-            widget: "text"
-            hint: "De tekst onder 'Over Thysja voor 't Hekke'"
+          # === BESTELLEN ===
+          - {label: "Sectie titel: Bestellen", name: "order_title", widget: "string"}
+          - {label: "Boek titel (bestel-blok)", name: "order_book_title", widget: "string"}
+          - {label: "Boek beschrijving (bestel-blok)", name: "order_book_desc", widget: "string"}
+          - {label: "Prijs hardcover", name: "price_hardcover", widget: "string"}
+          - {label: "Prijs softcover", name: "price_softcover", widget: "string"}
+          - {label: "Bestel knop tekst", name: "order_cta", widget: "string"}
+          - {label: "Bestel e-mailadres", name: "order_email", widget: "string"}
+          - {label: "Verzendinfo", name: "shipping_note", widget: "string"}
 
-          - label: "Opdracht (dedication)"
-            name: "dedication"
-            widget: "string"
-
+          # === REVIEWS ===
+          - {label: "Sectie titel: Reviews", name: "reviews_title", widget: "string"}
           - label: "Reviews"
             name: "reviews"
             widget: "list"
-            min: 1
-            max: 6
             summary: "{{fields.author}} — {{fields.role}}"
             fields:
               - {label: "Tekst", name: "text", widget: "text"}
               - {label: "Naam", name: "author", widget: "string"}
               - {label: "Rol/Functie", name: "role", widget: "string"}
 
+          # === FAQ ===
+          - {label: "Sectie titel: FAQ", name: "faq_title", widget: "string"}
           - label: "Veelgestelde vragen"
             name: "faq"
             widget: "list"
@@ -80,3 +108,13 @@ collections:
             fields:
               - {label: "Vraag", name: "question", widget: "string"}
               - {label: "Antwoord", name: "answer", widget: "text"}
+
+          # === NIEUWSBRIEF ===
+          - {label: "Nieuwsbrief titel", name: "newsletter_title", widget: "string"}
+          - {label: "Nieuwsbrief beschrijving", name: "newsletter_desc", widget: "string"}
+          - {label: "Nieuwsbrief knop tekst", name: "newsletter_cta", widget: "string"}
+
+          # === FOOTER ===
+          - {label: "Footer tagline", name: "footer_tagline", widget: "string"}
+          - {label: "Contact e-mail", name: "contact_email", widget: "string"}
+          - {label: "Copyright tekst", name: "copyright", widget: "string"}
