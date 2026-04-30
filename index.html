@@ -318,10 +318,12 @@ if(d.contact_email){document.getElementById('ce').href='mailto:'+d.contact_email
 }).catch(()=>{});
 
 // === EDIT MODE ===
+
 let nIdentity = null;
-let editOn = false;
 function showLoginBtn(){
-  removeUI();
+  ['edit-fab','edit-toolbar','edit-info'].forEach(id => {const e = document.getElementById(id); if(e) e.remove();});
+  document.querySelectorAll('.edit-pen').forEach(p => p.remove());
+  document.body.classList.remove('edit-on');
   const b = document.createElement('button');
   b.className = 'edit-fab';
   b.innerHTML = '🔐 Bewerk site';
@@ -330,45 +332,45 @@ function showLoginBtn(){
   document.body.appendChild(b);
 }
 function showToolbar(user){
-  removeUI();
+  ['edit-fab','edit-toolbar','edit-info'].forEach(id => {const e = document.getElementById(id); if(e) e.remove();});
   const t = document.createElement('div');
   t.className = 'edit-toolbar';
   t.id = 'edit-toolbar';
-  t.innerHTML = '<h4>Hi ' + (user.user_metadata?.full_name || user.email.split('@')[0]) + '!</h4>' +
-    '<button onclick="toggleEdit()">' + (editOn ? '👁️ Verlaat bewerk modus' : '✏️ Klik-en-bewerk modus') + '</button>' +
+  const isOn = document.body.classList.contains('edit-on');
+  const userName = (user.user_metadata && user.user_metadata.full_name) ? user.user_metadata.full_name : user.email.split('@')[0];
+  t.innerHTML = '<h4>Hi ' + userName + '!</h4>' +
+    '<button id="edit-toggle-btn">' + (isOn ? '👁️ Verlaat bewerk modus' : '✏️ Klik-en-bewerk modus') + '</button>' +
     '<button class="alt" onclick="window.open(\'/admin/\', \'_blank\')">📝 Volledige CMS</button>' +
     '<button class="danger" onclick="netlifyIdentity.logout()">Uitloggen</button>';
   document.body.appendChild(t);
-  // Add edit info banner
-  const info = document.createElement('div');
-  info.className = 'edit-info';
-  info.id = 'edit-info';
-  info.innerHTML = '✏️ Bewerk modus actief — klik op een element om het in CMS te openen';
-  document.body.appendChild(info);
-}
-function removeUI(){
-  ['edit-fab','edit-toolbar','edit-info'].forEach(id => {const e = document.getElementById(id); if(e) e.remove();});
-  document.querySelectorAll('.edit-pen').forEach(p => p.remove());
-  document.body.classList.remove('edit-on');
-  editOn = false;
+  document.getElementById('edit-toggle-btn').addEventListener('click', toggleEdit);
+  if(!document.getElementById('edit-info')){
+    const info = document.createElement('div');
+    info.className = 'edit-info';
+    info.id = 'edit-info';
+    info.innerHTML = '✏️ Bewerk modus actief — klik op een element om het in CMS te openen';
+    document.body.appendChild(info);
+  }
 }
 function toggleEdit(){
-  editOn = !editOn;
-  if(editOn){
-    document.body.classList.add('edit-on');
-    addPens();
-  } else {
+  const isOn = document.body.classList.contains('edit-on');
+  if(isOn){
     document.body.classList.remove('edit-on');
     document.querySelectorAll('.edit-pen').forEach(p => p.remove());
+    const btn = document.getElementById('edit-toggle-btn');
+    if(btn) btn.textContent = '✏️ Klik-en-bewerk modus';
+  } else {
+    document.body.classList.add('edit-on');
+    addPens();
+    const btn = document.getElementById('edit-toggle-btn');
+    if(btn) btn.textContent = '👁️ Verlaat bewerk modus';
   }
-  // Refresh toolbar
-  if(nIdentity?.currentUser()) showToolbar(nIdentity.currentUser());
 }
 function addPens(){
   const adminUrl = '/admin/#/collections/instellingen/entries/main';
   document.querySelectorAll('[data-cms],[data-cms-img],[data-cms-list]').forEach(el => {
     if(el.querySelector(':scope > .edit-pen')) return;
-    el.style.position = el.style.position || 'relative';
+    if(getComputedStyle(el).position === 'static') el.style.position = 'relative';
     const pen = document.createElement('button');
     pen.className = 'edit-pen';
     pen.innerHTML = '✏️';
