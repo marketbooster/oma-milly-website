@@ -130,7 +130,25 @@ footer p{color:var(--sky);font-size:.9rem;margin-bottom:.5rem}
 .fade.vis{opacity:1;transform:translateY(0)}
 @media(max-width:900px){.grid,.about-grid,.author-grid,.order-card{grid-template-columns:1fr;gap:2rem;text-align:center}.cards,.review-cards{grid-template-columns:1fr}.peek-grid{grid-template-columns:repeat(2,1fr)}.aph{margin:0 auto}.btns{justify-content:center}section{padding:3.5rem 0}.about-text h2,.author-text h2{text-align:center}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.bg,.spotlight,.stone,.night-ov{display:none}}
+
+.edit-fab{position:fixed;bottom:20px;right:20px;z-index:9999;background:#fff;border:none;padding:.7rem 1.2rem;border-radius:30px;box-shadow:0 4px 20px rgba(0,0,0,.15);cursor:pointer;font-family:'Lora',serif;font-size:14px;color:var(--twilight);display:flex;align-items:center;gap:8px;transition:all .2s}
+.edit-fab:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,0,0,.2)}
+.edit-toolbar{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;background:#fff;padding:12px;border-radius:16px;box-shadow:0 4px 25px rgba(0,0,0,.2);font-family:'Lora',serif;font-size:13px;min-width:200px}
+.edit-toolbar h4{font-family:'Caveat',cursive;font-size:1.3rem;color:var(--twilight);margin:0 0 4px}
+.edit-toolbar button{background:var(--peach);color:var(--twilight);border:none;padding:8px 14px;border-radius:20px;cursor:pointer;font-family:inherit;font-size:13px;text-align:left;transition:background .2s}
+.edit-toolbar button:hover{background:var(--gold)}
+.edit-toolbar button.alt{background:var(--ivory);border:1px solid var(--sand)}
+.edit-toolbar button.danger{background:transparent;color:var(--soft);font-size:12px;padding:4px 8px}
+body.edit-on [data-cms],body.edit-on [data-cms-img],body.edit-on [data-cms-list]{outline:2px dashed rgba(232,201,122,.5);outline-offset:6px;cursor:pointer;transition:outline .2s;border-radius:4px}
+body.edit-on [data-cms]:hover,body.edit-on [data-cms-img]:hover,body.edit-on [data-cms-list]:hover{outline:2px solid var(--gold);outline-offset:8px;background:rgba(232,201,122,.08)}
+.edit-pen{position:absolute;top:-12px;right:-12px;width:32px;height:32px;background:var(--gold);border:2px solid #fff;border-radius:50%;cursor:pointer;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:50;display:none;align-items:center;justify-content:center;color:var(--twilight);font-weight:bold}
+body.edit-on .edit-pen{display:flex}
+.edit-pen:hover{transform:scale(1.15)}
+.edit-info{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--twilight);color:#fff;padding:8px 16px;border-radius:20px;font-family:'Lora',serif;font-size:13px;box-shadow:0 4px 15px rgba(0,0,0,.2);display:none}
+body.edit-on .edit-info{display:block}
+
 </style>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 <div class="bg"></div>
@@ -298,6 +316,77 @@ if(d.faq){const c=document.querySelector('[data-cms-list="faq"]');if(c)c.innerHT
 if(d.order_email){document.getElementById('ob').href='mailto:'+d.order_email+'?subject=Bestelling%20'+encodeURIComponent(d.order_book_title||'Oma Milly')}
 if(d.contact_email){document.getElementById('ce').href='mailto:'+d.contact_email}
 }).catch(()=>{});
+
+// === EDIT MODE ===
+let nIdentity = null;
+let editOn = false;
+function showLoginBtn(){
+  removeUI();
+  const b = document.createElement('button');
+  b.className = 'edit-fab';
+  b.innerHTML = '🔐 Bewerk site';
+  b.onclick = () => netlifyIdentity.open();
+  b.id = 'edit-fab';
+  document.body.appendChild(b);
+}
+function showToolbar(user){
+  removeUI();
+  const t = document.createElement('div');
+  t.className = 'edit-toolbar';
+  t.id = 'edit-toolbar';
+  t.innerHTML = '<h4>Hi ' + (user.user_metadata?.full_name || user.email.split('@')[0]) + '!</h4>' +
+    '<button onclick="toggleEdit()">' + (editOn ? '👁️ Verlaat bewerk modus' : '✏️ Klik-en-bewerk modus') + '</button>' +
+    '<button class="alt" onclick="window.open(\'/admin/\', \'_blank\')">📝 Volledige CMS</button>' +
+    '<button class="danger" onclick="netlifyIdentity.logout()">Uitloggen</button>';
+  document.body.appendChild(t);
+  // Add edit info banner
+  const info = document.createElement('div');
+  info.className = 'edit-info';
+  info.id = 'edit-info';
+  info.innerHTML = '✏️ Bewerk modus actief — klik op een element om het in CMS te openen';
+  document.body.appendChild(info);
+}
+function removeUI(){
+  ['edit-fab','edit-toolbar','edit-info'].forEach(id => {const e = document.getElementById(id); if(e) e.remove();});
+  document.querySelectorAll('.edit-pen').forEach(p => p.remove());
+  document.body.classList.remove('edit-on');
+  editOn = false;
+}
+function toggleEdit(){
+  editOn = !editOn;
+  if(editOn){
+    document.body.classList.add('edit-on');
+    addPens();
+  } else {
+    document.body.classList.remove('edit-on');
+    document.querySelectorAll('.edit-pen').forEach(p => p.remove());
+  }
+  // Refresh toolbar
+  if(nIdentity?.currentUser()) showToolbar(nIdentity.currentUser());
+}
+function addPens(){
+  const adminUrl = '/admin/#/collections/instellingen/entries/main';
+  document.querySelectorAll('[data-cms],[data-cms-img],[data-cms-list]').forEach(el => {
+    if(el.querySelector(':scope > .edit-pen')) return;
+    el.style.position = el.style.position || 'relative';
+    const pen = document.createElement('button');
+    pen.className = 'edit-pen';
+    pen.innerHTML = '✏️';
+    pen.title = 'Open in CMS';
+    pen.onclick = e => { e.stopPropagation(); e.preventDefault(); window.open(adminUrl, '_blank'); };
+    el.appendChild(pen);
+  });
+}
+window.toggleEdit = toggleEdit;
+function initIdentity(){
+  if(typeof netlifyIdentity === 'undefined'){ setTimeout(initIdentity, 200); return; }
+  nIdentity = netlifyIdentity;
+  netlifyIdentity.on('init', user => user ? showToolbar(user) : showLoginBtn());
+  netlifyIdentity.on('login', user => { showToolbar(user); netlifyIdentity.close(); });
+  netlifyIdentity.on('logout', () => showLoginBtn());
+  netlifyIdentity.init();
+}
+initIdentity();
 </script>
 </body>
 </html>
